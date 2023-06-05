@@ -1,0 +1,133 @@
+using System.IO;
+namespace Cars
+{
+    class Program
+    {
+        class Car
+        {
+            public string ID { get; set; }
+            public string Mark { get; set; }
+            public string year { get; set; }
+            
+            public string GetMark(string mark)
+            {
+                if (Mark.Contains(mark)) return Mark + " " + year;
+                else return "";
+            }
+        }
+        public class Owner
+        {
+            public string Name { get; set; }
+            public List<string> IDs = new List<string>();
+
+            public string GetName(string name)
+            {
+                if (Name.Contains(name))
+                {
+                    foreach (string s in IDs)
+                    {
+                        return s;
+                    }
+                    return " ";
+                }
+                else return "";
+            }
+            public string GetOwner(string number)
+            {
+                if (IDs.Contains(number)) return Name;
+                else return "";
+            }
+            
+        }
+
+        
+        static void Main()
+        {
+            Car Camry = new Car
+            {
+                ID = "н800мс",
+                Mark = "Toyota Camry 3.5",
+                year = "2015"
+            };
+            Car Largus = new Car
+            {
+                ID = "к234ок",
+                Mark = "LADA Largus",
+                year = "2008"
+            };
+            Car Corolla = new Car
+            {
+                ID = "с916ес",
+                Mark = "Toyota Corolla",
+                year = "2007",
+            };
+            Car Lada07 = new Car
+            {
+                ID = "е649но",
+                Mark = "LADA 2107",
+                year = "1999",
+            };
+            Owner Ivan = new Owner();
+            Ivan.Name = "Иван Иванов";
+            Ivan.IDs.Add(Camry.ID);
+            Ivan.IDs.Add(Lada07.ID);
+
+            Owner Ilia = new Owner();
+            Ilia.Name = "Ilia";
+            Ilia.IDs.Add(Largus.ID);
+            Ilia.IDs.Add(Corolla.ID);
+
+            Owner Andrey = new Owner();
+            Andrey.Name = "Андрей Денисов";
+            Andrey.IDs.Add(Lada07.ID);
+
+            bool Menu = true;
+            do
+            {
+                Console.WriteLine("[1] - Выбор владельцев по машине");
+                Console.WriteLine();
+                Console.WriteLine("[2] - выборка машин по марке");
+                Console.WriteLine();
+                Console.WriteLine("[3] - выборка владельцев по фамилии");
+                Console.WriteLine();
+                Console.WriteLine("[0] - выход");
+                Console.WriteLine();
+                int d = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
+                switch (d)
+                {
+                    case 1:
+                        Console.WriteLine("Введите номер");
+                        string h = Console.ReadLine();
+                        Console.WriteLine(Ivan.GetOwner(h));
+                        Console.WriteLine(Ilia.GetOwner(h));
+                        Console.WriteLine(Andrey.GetOwner(h));
+                        Console.ReadKey();
+                        break;
+                    case 2:
+                        Console.WriteLine("Введите маркку: ");
+                        string t = Console.ReadLine();
+                        Camry.GetMark(t);
+                        Console.WriteLine(Corolla.GetMark(t));
+                        Console.WriteLine(Largus.GetMark(t));
+                        Console.WriteLine(Lada07.GetMark(t));
+                        Console.ReadKey();
+                        break;
+                    case 3:
+                        Console.WriteLine("Введите Фамилию");
+                        string l = Console.ReadLine();
+                        Console.WriteLine(Ivan.GetName(l));
+                        Console.WriteLine(Ilia.GetName(l));
+                        Console.WriteLine(Andrey.GetName(l));
+                        Console.ReadKey();
+                        break;
+                    case 0:
+                        Menu = false;
+                        break;
+                }
+                Console.Clear();
+            } while (Menu);
+        }
+        
+        }
+    }

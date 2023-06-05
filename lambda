@@ -1,0 +1,65 @@
+using System;
+
+class HelloWorld
+{
+    delegate double NumbersOperation(double x, double y, double z);
+
+    static NumbersOperation Min = (x, y, z) => Math.Min(x, Math.Min(y, z));
+    static NumbersOperation Max = (x, y, z) => Math.Max(x, Math.Max(y, z));
+    static NumbersOperation Sum = (x, y, z) => x + y + z;
+    static NumbersOperation Mean = (x, y, z) => (x + y + z) / 3;
+    static NumbersOperation Prod = (x, y, z) => x * y * z;
+
+    static void Main()
+    {
+        while (true)
+        {
+            Console.WriteLine("Введите 3 числа: ");
+            try
+            {
+                var input = Array.ConvertAll(Console.ReadLine().Split(), Convert.ToDouble);
+
+                Console.WriteLine(@"
+Выберите операцию:
+1. Найти минимальное число
+2. Найти максимальное число
+3. Найти сумму чисел
+4. Найти произведение чисел
+5. Найти среднее арифметическое
+");
+
+                var choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "1":
+                        Console.WriteLine($"Минимальное число: {Min(input[0], input[1], input[2])}");
+                        break;
+
+                    case "2":
+                        Console.WriteLine($"Максимальное число: {Max(input[0], input[1], input[2])}");
+                        break;
+
+                    case "3":
+                        Console.WriteLine($"Сумма чисел: {Sum(input[0], input[1], input[2])}");
+                        break;
+
+                    case "4":
+                        Console.WriteLine($"Произведение чисел: {Prod(input[0], input[1], input[2])}");
+                        break;
+
+                    case "5":
+                        Console.WriteLine($"Среднее арифметическое: {Mean(input[0], input[1], input[2])}");
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Некорректный ввод");
+            }
+
+            Console.WriteLine("\nДля продолжения нажмите любую клавишу . . .");
+            Console.ReadKey();
+            Console.Clear();
+        }
+    }
+}
